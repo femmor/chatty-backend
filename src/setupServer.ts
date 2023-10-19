@@ -7,7 +7,8 @@ import {
   NextFunction,
 } from "express";
 
-import dotenv = require("dotenv");
+import { config } from "./config";
+
 import cookieSession = require("cookie-session");
 import cors = require("cors");
 import hpp = require("hpp");
@@ -17,9 +18,7 @@ import "express-async-errors";
 import HTTP_STATUS from "http-status-codes";
 import http = require("http");
 
-dotenv.config();
-
-const PORT = process.env.PORT || 5005;
+const { PORT, SECRET_KEY_ONE, SECRET_KEY_TWO, NODE_ENV, CLIENT_URL } = config;
 
 export class ChattyServer {
   private app: Application;
@@ -40,9 +39,9 @@ export class ChattyServer {
     app.use(
       cookieSession({
         name: "session",
-        keys: ["test1", "test2"],
-        maxAge: 24 * 7 * 3600,
-        secure: false,
+        keys: [SECRET_KEY_ONE || "", SECRET_KEY_TWO || ""],
+        maxAge: 24 * 7 * 3600 || 0,
+        secure: NODE_ENV !== "development",
       })
     );
 
@@ -50,7 +49,7 @@ export class ChattyServer {
     app.use(helmet());
     app.use(
       cors({
-        origin: "*",
+        origin: CLIENT_URL,
         credentials: true,
         optionsSuccessStatus: 200,
         methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
