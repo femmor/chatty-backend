@@ -25,6 +25,7 @@ import helmet from "helmet";
 import "express-async-errors";
 import HTTP_STATUS from "http-status-codes";
 import http = require("http");
+import Logger = require("bunyan");
 
 // application routes import
 import applicationRoutes from "./routes";
@@ -42,7 +43,10 @@ const {
   NODE_ENV,
   CLIENT_URL,
   REDIS_HOST,
+  createLogger,
 } = config;
+
+const log: Logger = createLogger("Server Setup");
 
 // Server class
 export class ChattyServer {
@@ -119,7 +123,7 @@ export class ChattyServer {
         res: Response,
         next: NextFunction
       ) => {
-        console.log(error);
+        log.error(error);
 
         if (error instanceof CustomError) {
           return res.status(error.statusCode).json(error.serializeErrors());
@@ -138,7 +142,7 @@ export class ChattyServer {
       this.startHttpServer(httpServer);
       this.socketIOConnections(socketIO);
     } catch (error) {
-      console.log(error);
+      log.error(error);
     }
   }
 
@@ -164,9 +168,9 @@ export class ChattyServer {
 
   // private start server method
   private startHttpServer(httpServer: http.Server): void {
-    console.log(`Server has started with process ${process.pid}`);
+    log.info(`Server has started with process ${process.pid}`);
     httpServer.listen(PORT, () => {
-      console.log(`Server running on port ${PORT}`);
+      log.info(`Server running on port ${PORT}`);
     });
   }
 

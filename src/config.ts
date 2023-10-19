@@ -1,7 +1,9 @@
 import dotenv = require("dotenv");
+import bunyan = require("bunyan");
 
 dotenv.config();
 
+// config class
 class Config {
   public PORT: string | undefined;
   public MONGO_URI: string | undefined;
@@ -23,6 +25,15 @@ class Config {
     this.REDIS_HOST = process.env.REDIS_HOST || "";
   }
 
+  // logger method for custom logging
+  public createLogger(name: string): bunyan {
+    return bunyan.createLogger({
+      name,
+      level: "debug",
+    });
+  }
+
+  // Validates config
   public validateConfig(): void {
     for (const [key, value] of Object.entries(this)) {
       if (value === undefined) {
