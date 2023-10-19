@@ -1,23 +1,40 @@
 {
-  "compilerOptions": {
-    "target": "es2015",
-    "module": "CommonJS",
-    "lib": ["DOM", "ES2015"],
-    "baseUrl": ".",
-    "outDir": "./build",
-    "rootDir": "src",
-    "strict": true,
-    "noImplicitAny": true,
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
-    "moduleResolution": "node",
-    "esModuleInterop": true,
-    "sourceMap": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "forceConsistentCasingInFileNames": true,
-    "allowSyntheticDefaultImports": false,
-    "pretty": true,
-    "resolveJsonModule": true
-  }
+	"compilerOptions": {
+		"target": "es2015",
+		"module": "CommonJS",
+		"lib": ["DOM", "ES2015"],
+		"baseUrl": ".",
+		"outDir": "./build",
+		"rootDir": "src",
+		"strict": true,
+		"noImplicitAny": true,
+		"noUnusedLocals": false,
+		"noUnusedParameters": false,
+		"moduleResolution": "node",
+		"esModuleInterop": true,
+		"sourceMap": true,
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true,
+		"forceConsistentCasingInFileNames": true,
+		"allowSyntheticDefaultImports": false,
+		"pretty": true,
+		"resolveJsonModule": true,
+		"plugins": [
+			{
+				"transform": "typescript-transform-path"
+			},
+			{
+				"transform": "typescript-transform-path",
+				"afterDeclarations": true
+			}
+		],
+		"paths": {
+			"@features/*": ["src/features/auth/*"],
+			"@globals/*": ["src/shared/globals/*"],
+			"@services/*": ["src/shared/services/*"],
+			"@sockets/*": ["src/shared/sockets/*"],
+			"@workers/*": ["src/shared/workers/*"],
+			"@root/*": ["src/*"]
+		}
+	}
 }

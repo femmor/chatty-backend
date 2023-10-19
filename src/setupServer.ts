@@ -2,7 +2,7 @@
 import { Application, json, urlencoded, Response, Request, NextFunction } from 'express';
 
 // Env config
-import { config } from './config';
+import { config } from '@root/config';
 
 // Socket IO imports
 import { Server } from 'socket.io';
@@ -21,8 +21,8 @@ import http = require('http');
 import Logger = require('bunyan');
 
 // application routes import
-import applicationRoutes from './routes';
-import { IErrorResponse, CustomError } from './shared/globals/helpers/error-handler';
+import applicationRoutes from '@root/routes';
+import { CustomError, IErrorResponse } from '@globals/helpers/error-handler';
 
 // Destructure properties of config
 const { PORT, SECRET_KEY_ONE, SECRET_KEY_TWO, NODE_ENV, CLIENT_URL, REDIS_HOST, createLogger } = config;
@@ -149,5 +149,9 @@ export class ChattyServer {
 	}
 
 	// private socket.io connection method
-	private socketIOConnections(io: Server): void {}
+	private socketIOConnections(io: Server): void {
+		log.info('socket connections');
+		// Todo - Remove below line of code
+		io.on('connection', () => console.log('connected'));
+	}
 }

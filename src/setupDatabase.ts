@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { config } from './config';
+import { config } from '@root/config';
 import Logger = require('bunyan');
 
 const { MONGO_URI, createLogger } = config;
