@@ -1,3 +1,4 @@
+// Express imports
 import {
   Application,
   json,
@@ -7,12 +8,15 @@ import {
   NextFunction,
 } from "express";
 
+// Env config
 import { config } from "./config";
 
+// Socket IO imports
 import { Server } from "socket.io";
 import { createClient } from "redis";
 import { createAdapter } from "@socket.io/redis-adapter";
 
+// Standard and security middleware modules import
 import cookieSession = require("cookie-session");
 import cors = require("cors");
 import hpp = require("hpp");
@@ -22,6 +26,10 @@ import "express-async-errors";
 import HTTP_STATUS from "http-status-codes";
 import http = require("http");
 
+// application routes import
+import applicationRoutes from "./routes";
+
+// Destructure properties of config
 const {
   PORT,
   SECRET_KEY_ONE,
@@ -31,6 +39,7 @@ const {
   REDIS_HOST,
 } = config;
 
+// Server class
 export class ChattyServer {
   private app: Application;
 
@@ -38,6 +47,7 @@ export class ChattyServer {
     this.app = app;
   }
 
+  // Public application start method
   public start(): void {
     this.securityMiddleware(this.app);
     this.standardMiddleware(this.app);
@@ -46,6 +56,7 @@ export class ChattyServer {
     this.startServer(this.app);
   }
 
+  // private security middleware method
   private securityMiddleware(app: Application): void {
     app.use(
       cookieSession({
@@ -68,6 +79,7 @@ export class ChattyServer {
     );
   }
 
+  // Private standard middleware method
   private standardMiddleware(app: Application): void {
     app.use(compression());
     app.use(
@@ -83,10 +95,15 @@ export class ChattyServer {
     );
   }
 
-  private routesMiddleware(app: Application): void {}
+  // private routes middleware method
+  private routesMiddleware(app: Application): void {
+    applicationRoutes(app);
+  }
 
+  // private global error handler method
   private globalErrorHandler(app: Application): void {}
 
+  // private start server method
   private async startServer(app: Application): Promise<void> {
     try {
       const httpServer: http.Server = new http.Server(app);
@@ -98,6 +115,7 @@ export class ChattyServer {
     }
   }
 
+  // private socketIO method
   private async createSocketIO(httpServer: http.Server): Promise<Server> {
     const io: Server = new Server(httpServer, {
       cors: {
@@ -117,6 +135,7 @@ export class ChattyServer {
     return io;
   }
 
+  // private start server method
   private startHttpServer(httpServer: http.Server): void {
     console.log(`Server has started with process ${process.pid}`);
     httpServer.listen(PORT, () => {
@@ -124,5 +143,6 @@ export class ChattyServer {
     });
   }
 
+  // private socket.io connection method
   private socketIOConnections(io: Server): void {}
 }
