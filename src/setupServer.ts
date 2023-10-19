@@ -7,6 +7,7 @@ import {
   NextFunction,
 } from "express";
 
+import dotenv = require("dotenv");
 import cookieSession = require("cookie-session");
 import cors = require("cors");
 import hpp = require("hpp");
@@ -14,8 +15,11 @@ import compression = require("compression");
 import helmet from "helmet";
 import "express-async-errors";
 import HTTP_STATUS from "http-status-codes";
+import http = require("http");
 
-import { Server } from "http";
+dotenv.config();
+
+const PORT = process.env.PORT || 5005;
 
 export class ChattyServer {
   private app: Application;
@@ -73,9 +77,20 @@ export class ChattyServer {
 
   private globalErrorHandler(app: Application): void {}
 
-  private startServer(app: Application): void {}
+  private async startServer(app: Application): Promise<void> {
+    try {
+      const httpServer: http.Server = new http.Server(app);
+      this.startHttpServer(httpServer);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
-  private createSocketIO(httpServer: Server): void {}
+  private createSocketIO(httpServer: http.Server): void {}
 
-  private startHttpServer(httpServer: Server): void {}
+  private startHttpServer(httpServer: http.Server): void {
+    httpServer.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+  }
 }
