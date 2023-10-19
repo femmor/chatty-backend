@@ -9,6 +9,10 @@ import {
 
 import { config } from "./config";
 
+import { Server } from "socket.io";
+import { createClient } from "redis";
+import { createAdapter } from "@socket.io/redis-adapter";
+
 import cookieSession = require("cookie-session");
 import cors = require("cors");
 import hpp = require("hpp");
@@ -18,7 +22,14 @@ import "express-async-errors";
 import HTTP_STATUS from "http-status-codes";
 import http = require("http");
 
-const { PORT, SECRET_KEY_ONE, SECRET_KEY_TWO, NODE_ENV, CLIENT_URL } = config;
+const {
+  PORT,
+  SECRET_KEY_ONE,
+  SECRET_KEY_TWO,
+  NODE_ENV,
+  CLIENT_URL,
+  REDIS_HOST,
+} = config;
 
 export class ChattyServer {
   private app: Application;
@@ -79,17 +90,39 @@ export class ChattyServer {
   private async startServer(app: Application): Promise<void> {
     try {
       const httpServer: http.Server = new http.Server(app);
+      const socketIO: Server = await this.createSocketIO(httpServer);
       this.startHttpServer(httpServer);
+      this.socketIOConnections(socketIO);
     } catch (error) {
       console.log(error);
     }
   }
 
-  private createSocketIO(httpServer: http.Server): void {}
+  private async createSocketIO(httpServer: http.Server): Promise<Server> {
+    const io: Server = new Server(httpServer, {
+      cors: {
+        origin: CLIENT_URL,
+        methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+      },
+    });
+
+    const pubClient = createClient({ url: REDIS_HOST });
+    const subClient = pubClient.duplicate();
+
+    await Promise.all([pubClient.connect(), subClient.connect()]).then(() => {
+      io.adapter(createAdapter(pubClient, subClient));
+      io.listen(3000);
+    });
+
+    return io;
+  }
 
   private startHttpServer(httpServer: http.Server): void {
+    console.log(`Server has started with process ${process.pid}`);
     httpServer.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);
     });
   }
+
+  private socketIOConnections(io: Server): void {}
 }
