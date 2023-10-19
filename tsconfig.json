@@ -1,4 +1,8 @@
 {
+	"ts-node": {
+		"transpileOnly": true,
+		"require": ["typescript-transform-paths/register"]
+	},
 	"compilerOptions": {
 		"target": "es2015",
 		"module": "CommonJS",
@@ -21,10 +25,10 @@
 		"resolveJsonModule": true,
 		"plugins": [
 			{
-				"transform": "typescript-transform-path"
+				"transform": "typescript-transform-paths"
 			},
 			{
-				"transform": "typescript-transform-path",
+				"transform": "typescript-transform-paths",
 				"afterDeclarations": true
 			}
 		],
