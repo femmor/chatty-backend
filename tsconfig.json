@@ -20,7 +20,7 @@
 		"experimentalDecorators": true,
 		"emitDecoratorMetadata": true,
 		"forceConsistentCasingInFileNames": true,
-		"allowSyntheticDefaultImports": false,
+		"allowSyntheticDefaultImports": true,
 		"pretty": true,
 		"resolveJsonModule": true,
 		"plugins": [

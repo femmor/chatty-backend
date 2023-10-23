@@ -10,15 +10,15 @@ import { createClient } from 'redis';
 import { createAdapter } from '@socket.io/redis-adapter';
 
 // Standard and security middleware modules import
-import cookieSession = require('cookie-session');
-import cors = require('cors');
-import hpp = require('hpp');
-import compression = require('compression');
+import cookieSession from 'cookie-session';
+import cors from 'cors';
+import hpp from 'hpp';
+import compression from 'compression';
 import helmet from 'helmet';
 import 'express-async-errors';
 import HTTP_STATUS from 'http-status-codes';
-import http = require('http');
-import Logger = require('bunyan');
+import http from 'http';
+import Logger from 'bunyan';
 
 // application routes import
 import applicationRoutes from '@root/routes';

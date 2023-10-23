@@ -1,5 +1,4 @@
-import express = require('express');
-import { Express } from 'express';
+import express, { Express } from 'express';
 import { ChattyServer } from './setupServer';
 import DbConnection from './setupDatabase';
 import { config } from './config';
@@ -14,7 +13,9 @@ class Application {
 	}
 
 	private loadConfig(): void {
-		config.validateConfig();
+		const { validateConfig, cloudinaryConfig } = config;
+		validateConfig();
+		cloudinaryConfig();
 	}
 }
 
