@@ -33,7 +33,7 @@
 			}
 		],
 		"paths": {
-			"@features/*": ["src/features/auth/*"],
+			"@auth/*": ["src/features/auth/*"],
 			"@globals/*": ["src/shared/globals/*"],
 			"@services/*": ["src/shared/services/*"],
 			"@sockets/*": ["src/shared/sockets/*"],
