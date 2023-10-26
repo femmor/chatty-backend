@@ -1,3 +1,7 @@
+/**
+ * @fileOverview Application entry point
+ */
+
 import express, { Express } from 'express';
 import { ChattyServer } from './setupServer';
 import DbConnection from './setupDatabase';

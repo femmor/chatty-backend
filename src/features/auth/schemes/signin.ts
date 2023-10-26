@@ -1,3 +1,7 @@
+/**
+ * @fileOverview Defines the Sign in schema for the Auth feature.
+ */
+
 import Joi, { ObjectSchema } from 'joi';
 
 // Defines schema for the login request

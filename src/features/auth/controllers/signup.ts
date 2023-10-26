@@ -1,3 +1,9 @@
+/**
+ *
+ * @fileOverview Defines the SignUp class which is used to handle the signup route.
+ *
+ */
+
 import { ObjectId } from 'mongodb';
 import { Request, Response } from 'express';
 import { joiValidator } from '@globals/decorators/joi-validation.decorators';

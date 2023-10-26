@@ -1,3 +1,7 @@
+/**
+ * @fileOverview Cloudinary uploads helper
+ */
+
 import cloudinary, { UploadApiResponse, UploadApiErrorResponse } from 'cloudinary';
 
 export function uploads(

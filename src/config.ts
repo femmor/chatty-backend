@@ -1,3 +1,7 @@
+/**
+ * @fileOverview Application configuration class
+ */
+
 import dotenv from 'dotenv';
 import bunyan from 'bunyan';
 import cloudinary from 'cloudinary';

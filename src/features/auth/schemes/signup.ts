@@ -1,3 +1,7 @@
+/**
+ * @fileOverview Defines the Sign up schema for the Auth feature.
+ */
+
 import Joi, { ObjectSchema } from 'joi';
 
 // Defines schema for the signup request

@@ -1,3 +1,7 @@
+/**
+ * @fileOverview Defines the AuthModel schema, which is used to define the Auth model.
+ */
+
 import { IAuthDocument } from '@auth/interfaces/auth.interface';
 import { hash, compare } from 'bcryptjs';
 import { model, Model, Schema } from 'mongoose';

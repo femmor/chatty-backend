@@ -1,3 +1,7 @@
+/**
+ * @fileOverview Defines the auth interfaces.
+ */
+
 import { Document } from 'mongoose';
 import { ObjectId } from 'mongodb';
 

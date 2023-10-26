@@ -1,3 +1,7 @@
+/**
+ * @fileOverview Validator decorator for Joi validation
+ */
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { JoiRequestValidationError } from '@globals/helpers/error-handler';
 import { Request } from 'express';

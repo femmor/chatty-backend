@@ -1,3 +1,7 @@
+/**
+ * @fileOverview Defines the Reset Password schema for the Auth feature.
+ */
+
 import Joi, { ObjectSchema } from 'joi';
 
 // Defines schema for the reset / update password request

@@ -1,3 +1,7 @@
+/**
+ * @fileOverview Database setup
+ */
+
 import mongoose from 'mongoose';
 import { config } from '@root/config';
 import Logger from 'bunyan';

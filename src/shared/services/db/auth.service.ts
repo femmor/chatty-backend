@@ -1,3 +1,7 @@
+/**
+ * @fileOverview Defines the Auth service class, which is used to define all of the business logic for the Auth feature.
+ */
+
 import { IAuthDocument } from '@auth/interfaces/auth.interface';
 import { AuthModel } from '@auth/models/auth.schema';
 import { Helpers } from '@globals/helpers/helpers';

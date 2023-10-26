@@ -1,3 +1,7 @@
+/**
+ * @fileOverview Error handler interfaces and classes
+ */
+
 import HTTP_STATUS from 'http-status-codes';
 
 // Error response interface

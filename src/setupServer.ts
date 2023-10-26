@@ -1,3 +1,7 @@
+/**
+ * @fileOverview Defines classes, methods, middleware for server setup.
+ */
+
 // Express imports
 import { Application, json, urlencoded, Response, Request, NextFunction } from 'express';
 
