@@ -49,6 +49,7 @@ export class SignUp {
 		}
 	}
 
+	// Create the signup data object
 	private signupData(data: ISignUpData): IAuthDocument {
 		const { _id, uId, username, email, password, avatarColor } = data;
 
