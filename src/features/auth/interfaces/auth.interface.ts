@@ -38,7 +38,7 @@ export interface IAuthDocument extends Document {
 // Defines the interface for the AuthModel object
 export interface ISignUpData {
 	_id: ObjectId;
-	uId: string;
+	uId: number;
 	email: string;
 	username: string;
 	password: string;
