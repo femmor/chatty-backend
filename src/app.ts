@@ -17,9 +17,8 @@ class Application {
 	}
 
 	private loadConfig(): void {
-		const { validateConfig, cloudinaryConfig } = config;
-		validateConfig();
-		cloudinaryConfig();
+		config.validateConfig();
+		config.cloudinaryConfig();
 	}
 }
 

@@ -24,7 +24,7 @@ class Config {
 
 	constructor() {
 		this.PORT = process.env.PORT || '5005';
-		this.MONGO_URI = process.env.MONGO_URI || this.MONGO_URI;
+		this.MONGO_URI = process.env.MONGO_URI || '';
 		this.NODE_ENV = process.env.NODE_ENV || '';
 		this.JWT_SECRET = process.env.JWT_SECRET || '';
 		this.SECRET_KEY_ONE = process.env.SECRET_KEY_ONE || '';
@@ -32,8 +32,8 @@ class Config {
 		this.CLIENT_URL = process.env.CLIENT_URL || '';
 		this.REDIS_HOST = process.env.REDIS_HOST || '';
 		this.CLOUDINARY_NAME = process.env.CLOUDINARY_NAME || '';
-		this.CLOUDINARY_KEY = process.env.CLOUDINARY_KEY || '';
-		this.CLOUDINARY_SECRET = process.env.CLOUDINARY_SECRET || '';
+		this.CLOUDINARY_KEY = process.env.CLOUDINARY_API_KEY || '';
+		this.CLOUDINARY_SECRET = process.env.CLOUDINARY_API_SECRET || '';
 	}
 
 	// logger method for custom logging
@@ -48,7 +48,7 @@ class Config {
 	public validateConfig(): void {
 		for (const [key, value] of Object.entries(this)) {
 			if (value === undefined) {
-				throw new Error(`Configuration ${key} is undefined`);
+				throw new Error(`Configuration ${key} is undefined.`);
 			}
 		}
 	}

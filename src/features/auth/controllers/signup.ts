@@ -15,6 +15,7 @@ import { AuthModel } from '@auth/models/auth.schema';
 import { Helpers } from '@globals/helpers/helpers';
 import { UploadApiErrorResponse, UploadApiResponse } from 'cloudinary';
 import { uploads } from '@globals/helpers/cloudinary-upload';
+import HTTP_STATUS from 'http-status-codes';
 
 export class SignUp {
 	@joiValidator(signupSchema)
@@ -32,7 +33,7 @@ export class SignUp {
 		// Creates our own Ids for the user and auth objects
 		const authObjectId: ObjectId = new ObjectId();
 		const userObjectId: ObjectId = new ObjectId();
-		const uId: number = Helpers.generateRandomIntegers(12);
+		const uId = Helpers.generateRandomIntegers(12);
 
 		// Creates the user object
 		const authData: IAuthDocument = SignUp.prototype.signupData({
@@ -51,8 +52,13 @@ export class SignUp {
 		// If there is an error uploading the image, it won't return a public id so we need to check for that
 		if (!result?.public_id) {
 			// Throw an error if there is an error uploading the image
-			throw new BadRequestError('File upload: An error occurred while uploading the avatar image, please try again');
+			throw new BadRequestError('File upload: Error occurred, please try again');
 		}
+
+		res.status(HTTP_STATUS.CREATED).json({
+			message: 'User created successfully',
+			authData
+		});
 	}
 
 	// Create the signup data object
